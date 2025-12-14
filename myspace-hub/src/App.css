@@ -1,0 +1,244 @@
+.page {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;  
+  align-items: center;      
+  background: black;
+  padding: 2px;             
+  box-sizing: border-box; 
+}
+
+/* Inner canvas: THIS is what gets the max-width */
+.layout {
+  width: 100%;
+  max-width: 1800px;      
+  min-height: 85vh;
+
+  display: grid;
+  grid-template-columns: 320px minmax(0, 1fr) 260px;
+  gap: 2px;
+  padding: 2px;
+
+  box-sizing: border-box;
+}
+
+.panel {
+  background: rgb(0, 0, 0);
+  border: 2px solid black;
+  border-radius: 14px;
+  padding: 16px;
+}
+
+.content {
+  background: rgb(0, 0, 0);
+  border: 2px solid black;
+  border-radius: 14px;
+  padding: 16px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero {
+  width: min(100%, 900px);  
+  max-height: calc(100vh - 64px);
+  object-fit: contain;
+  border-radius: 12px;
+  border: 1px solid black;
+  box-shadow: 0 0 0 3px black, 0 12px 40px rgba(0,0,0,0.35);
+}
+
+.left-sidebar {
+  display: flex; 
+  flex-direction: column; 
+  position: relative;
+  overflow: hidden;
+  background-image: url("./assets/background.jpeg"); 
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  align-items: center;
+  justify-content: center; 
+  text-align: center; 
+  gap: 2px; 
+}
+
+.right-sidebar {
+  display: flex; 
+  flex-direction: column; 
+  position: relative;
+  overflow: hidden;
+  background-image: url("./assets/background.jpeg"); 
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  align-items: center;
+  justify-content: center; 
+  text-align: center; 
+  gap: 2px; 
+}
+
+.avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 16px;
+  object-fit: cover;
+
+  box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+}
+
+
+.duck {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 12px;
+  border-color: white; 
+}
+
+.text-chip {
+  display: inline-block;
+  padding: 6px 10px;
+
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+
+  border-radius: 6px;
+  line-height: 1.2;
+
+  box-shadow:
+    0 0 0 2px black,
+    0 4px 12px rgba(0,0,0,0.4);
+}
+
+.text-chip.subtle {
+  background: rgba(0,0,0,0.6);
+  font-size: 0.9rem;
+  opacity: 0.95;
+}
+
+.spotify-wrapper {
+  width: 100%;
+  max-width: 260px;
+
+  margin-top: 8px;
+
+  background: transparent;
+}
+
+.spotify-wrapper iframe {
+  width: 100%;
+  height: 152px;
+  border: none;
+  border-radius: 12px;
+  background: transparent;
+}
+
+.canvas {
+  position: relative; 
+  width: 100%;
+  max-width: 720px;   
+}
+
+.sticker {
+  position: absolute;
+  width: 120px;       
+  height: auto;
+
+  z-index: 10;
+  pointer-events: none; 
+
+  box-shadow:
+    0 4px 10px rgba(0,0,0,0.4);
+}
+
+.sticker:hover {
+  transform: scale(1.4) rotate(2deg);
+}
+
+.sticker {
+  position: absolute;
+  width: 120px;
+  height: auto;
+
+  z-index: 10;
+
+  box-shadow:
+    0 4px 10px rgba(0,0,0,0.4);
+
+  --scale: 1.25;
+  --rotate: 0deg;
+
+  transform: scale(var(--scale)) rotate(var(--rotate));
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+.drift {
+  animation: drift 22s ease-in-out infinite alternate;
+}
+
+@keyframes drift {
+  0% {
+    transform:
+      translate(0px, 0px)
+      scale(var(--scale))
+      rotate(var(--rotate));
+  }
+  50% {
+    transform:
+      translate(14px, -10px)
+      scale(var(--scale))
+      rotate(var(--rotate));
+  }
+  100% {
+    transform:
+      translate(-10px, 12px)
+      scale(var(--scale))
+      rotate(var(--rotate));
+  }
+}
+
+.ticker {
+  position: fixed;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 999;
+
+  width: min(1400px, calc(100% - 48px));
+  border-radius: 999px;
+  overflow: hidden;
+
+  background: rgba(0, 0, 0, 0.7);
+  border: 2px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(10px);
+}
+
+.ticker__track {
+  display: flex;
+  white-space: nowrap;
+  will-change: transform;
+  animation: tickerMove 18s linear infinite;
+}
+
+.ticker__track span {
+  padding: 10px 16px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: lowercase;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+@keyframes tickerMove {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* Accessibility: respect users who disable motion */
+@media (prefers-reduced-motion: reduce) {
+  .ticker__track {
+    animation: none;
+  }
+}
